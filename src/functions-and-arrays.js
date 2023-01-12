@@ -220,28 +220,59 @@ const matrix = [
   [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48]
 ];
 
-function greatestProduct(arr) {
+// function greatestProduct(arr) {
 
-  let sum1 = 0;
-  let sum2 = 0;
+//   let sum1 = 0;
+//   let sum2 = 0;
 
-  arr.forEach(item => {
-    if(item.every(subItem => subItem == 1)) {
-      sum1 += 1
-    } else if(item.every(subItem => subItem == 2)) {
-      sum2 += 1
+//   arr.forEach(item => {
+//     if(item.every(subItem => subItem == 1)) {
+//       sum1 += 1
+//     } else if(item.every(subItem => subItem == 2)) {
+//       sum2 += 1
+//     }
+//   })
+
+//   if (sum1 == arr.length) {
+//     return 1
+//   } else if (sum2 == arr.length) {
+//     return 16
+//   }
+
+// }
+
+//BONUS #8.1 PRODUCT OF ADJACENT NUMBERS
+
+function greatestProduct(matrix) {
+
+  let max = 0;
+  let product = 0;
+  let length = matrix.length;
+  
+  for (let i = 0; i < length; i++) {
+    for (let j = 0; j < length; j++) {
+
+      //check for max product in a Row
+      if ((j-3) >= 0) {
+        product = matrix[i][j]*matrix[i][j-1]*matrix[i][j-2]*matrix[i][j-3];
+        if (max < product) max = product;
+      }
+
+      //check for max product in a Column
+      if ((i-3) >= 0) {
+        product = matrix[i][j]*matrix[i-1][j]*matrix[i-2][j]*matrix[i-3][j];
+        if (max < product) max = product;
+      }
+
+      //check for max product in a Diagonal
+      if ((i-3) >= 0 && (j-3) >= 0)
+      product = matrix[i][j]*matrix[i-1][j-1]*matrix[i-2][j-2]*matrix[i-3][j-3];
+      if (max < product) max = product;
     }
-  })
-
-  if (sum1 == arr.length) {
-    return 1
-  } else if (sum2 == arr.length) {
-    return 16
   }
 
+  return max
 }
-
-
 
 
 // The following is required to make unit tests work.
